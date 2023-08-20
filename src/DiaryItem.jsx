@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 
 export default function DiaryItem({data, onDelete, onEdit}) {
     // console.log(id);
@@ -20,15 +20,23 @@ export default function DiaryItem({data, onDelete, onEdit}) {
     }
 
     const handleEdit = () => {
+      if(localContent.length < 5) {
+        localContentInput.current.focus();
+        return;
+      } 
       onEdit(data.id, localContent);
       toggleIsEdit();
     }
+
+
+    // focuse function
+    const localContentInput = useRef();
 
     return (
         <div>
           <p>Author: {data.author}</p>
           <p>Emotion: {data.emotion} </p>
-          <p>Content: {toggle ? (<textarea value={localContent} onChange={(e)=>{setLocalContent(e.target.value)}}></textarea>) : (data.content)}</p>
+          <p>Content: {toggle ? (<textarea ref={localContentInput} value={localContent} onChange={(e)=>{setLocalContent(e.target.value)}}></textarea>) : (data.content)}</p>
           {/* <p>Contnet: {data.content} </p> */}
           {toggle ? (<><button onClick={handleEdit}>Save</button><button onClick={handleQuitEdit}>Cancel</button></>) : (<><button onClick={onClick}>Delete</button> <button onClick={toggleIsEdit}>Edit</button></>)}
         </div>
