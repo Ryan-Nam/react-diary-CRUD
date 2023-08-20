@@ -26,8 +26,10 @@ function App() {
     setData(data.filter((item)=>item.id !== id))
   }
 
-  const onEdit = (id) => {
-    console.log(`Do you wanna update this? ${id}`)
+  const onEdit = (id, newContent) => {
+    // console.log(`Do you wanna update this? ${id} ${toggle}`)
+    setData(data.map((item)=>item.id === id ? {...item, content: newContent} : item));
+    
     
 
   }

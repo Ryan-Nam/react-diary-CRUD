@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 export default function DiaryItem({data, onDelete, onEdit}) {
     // console.log(id);
@@ -7,18 +7,30 @@ export default function DiaryItem({data, onDelete, onEdit}) {
       onDelete(data.id);
     }
 
-    const butonEdit = () => {
-      console.log(`${data.id} is selected`)
-      onEdit(data.id)
+
+    const [localContent, setLocalContent] = useState(data.content);
+    const [toggle, setToggle] = useState(false);
+
+    const toggleIsEdit = () => setToggle(!toggle);
+    console.log(`currnet Toggle Value: ${toggle}`);
+
+    const handleQuitEdit = () => {
+      setToggle(false);
+      setLocalContent(data.content);
     }
+
+    const handleEdit = () => {
+      onEdit(data.id, localContent);
+      toggleIsEdit();
+    }
+
     return (
         <div>
           <p>Author: {data.author}</p>
           <p>Emotion: {data.emotion} </p>
-          <p>Contnet: {data.content} </p>
-          <button onClick={onClick}>Delete</button>
-          <button onClick={butonEdit}>Edit</button>
+          <p>Content: {toggle ? (<textarea value={localContent} onChange={(e)=>{setLocalContent(e.target.value)}}></textarea>) : (data.content)}</p>
+          {/* <p>Contnet: {data.content} </p> */}
+          {toggle ? (<><button onClick={handleEdit}>Save</button><button onClick={handleQuitEdit}>Cancel</button></>) : (<><button onClick={onClick}>Delete</button> <button onClick={toggleIsEdit}>Edit</button></>)}
         </div>
     );
 }
-

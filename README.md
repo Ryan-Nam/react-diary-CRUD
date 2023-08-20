@@ -20,3 +20,6 @@ In the project directory, you can run:
 3. Make the function: onCreate() ****
 
 4. make the functionL onDelete() ****
+
+5. make the function: onEdit() *** hard
+- toggle is neeed, seleted, or not seleted
