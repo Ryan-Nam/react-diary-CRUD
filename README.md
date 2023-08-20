@@ -18,3 +18,5 @@ In the project directory, you can run:
 
 
 3. Make the function: onCreate() ****
+
+4. make the functionL onDelete() ****

@@ -1,47 +1,33 @@
+import { useRef, useState } from 'react';
 import './App.css';
 import DiaryList from './DiaryList';
 import DiaryNewForm from './DiaryNewForm';
 
 function App() {
 
-  const dummyList = [
-    {
-      id:1,
-      author: 'Ryan',
-      content: 'Hello - this is Ryan Diary',
-      emotion: 1
-    },
-    {
-      id:2,
-      author: 'Bella',
-      content: 'Hello - this is Bella Diary',
-      emotion: 3
-    },
-    {
-      id:3,
-      author: 'Tummy',
-      content: 'Hello - this is Tummy Diary',
-      emotion: 4
-    },
-    {
-      id:4,
-      author: 'Nick',
-      content: 'Hello - this is Nick Diary',
-      emotion: 5
-    },
-    {
-      id:5,
-      author: 'Dan',
-      content: 'Hello - this is Dan Diary',
-      emotion: 2
-    },
-  ]
+  const [data, setData] = useState([]);
+  const dataId = useRef(0);
 
+  const onCreate = (author, content, emotion) => {
+    console.log('created!');
+    console.log(author)
+    console.log(content)
+    console.log(emotion)
+    const newItem = {
+      author, content, emotion, id: dataId.current
+    }
+    dataId.current += 1;
+    setData([newItem, ...data]);
+  }
+  const onDelete =(id) => {
+    console.log(`Deleted ${id}`);
+    setData([])
+  }
 
   return (
     <div className="App">
-      <DiaryNewForm />
-      <DiaryList list={dummyList} />
+      <DiaryNewForm onCreate={onCreate}/>
+      <DiaryList list={data} onDelete={onDelete} />
     </div>
   );
 }

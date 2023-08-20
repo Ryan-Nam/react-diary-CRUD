@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 
-export default function DiaryNewForm() {
-//   const [author, setAuthor] = useState("");
-//   const [content, setContent] = useState("");
-//   const [emotion, setEmotion] = useState(1);
+export default function DiaryNewForm({onCreate}) {
+
+    
 
   const [diaryInfo, setDiaryInfo] = useState({
     author: "",
@@ -15,6 +14,7 @@ export default function DiaryNewForm() {
     setDiaryInfo({...diaryInfo, [e.target.name]:e.target.value});
   }
 
+
   return (
     <>
       <h2>Today's Diary</h2>
@@ -25,6 +25,8 @@ export default function DiaryNewForm() {
             console.log(`Your Author name: ${diaryInfo.author}`);
             console.log(`Your content: ${diaryInfo.content}`);
             console.log(`Your Emotion: ${diaryInfo.emotion}`);
+            // onCreate(diaryInfo);
+            onCreate(diaryInfo.author, diaryInfo.content, diaryInfo.emotion);
         }}
       >
         <div>
