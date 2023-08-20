@@ -1,9 +1,19 @@
 import React, { useState } from "react";
 
 export default function DiaryNewForm() {
-  const [author, setAuthor] = useState("");
-  const [content, setContent] = useState("");
-  const [emotion, setEmotion] = useState(1);
+//   const [author, setAuthor] = useState("");
+//   const [content, setContent] = useState("");
+//   const [emotion, setEmotion] = useState(1);
+
+  const [diaryInfo, setDiaryInfo] = useState({
+    author: "",
+    content: "",
+    emotion: 1,
+  });
+
+  const handleChangeState = (e) => {
+    setDiaryInfo({...diaryInfo, [e.target.name]:e.target.value});
+  }
 
   return (
     <>
@@ -11,51 +21,47 @@ export default function DiaryNewForm() {
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          console.log("saved!");
-          console.log(`Your Author name: ${author}`);
-          console.log(`Your content: ${content}`);
-          console.log(`Your Emotion: ${emotion}`);
+            console.log("saved!");
+            console.log(`Your Author name: ${diaryInfo.author}`);
+            console.log(`Your content: ${diaryInfo.content}`);
+            console.log(`Your Emotion: ${diaryInfo.emotion}`);
         }}
       >
         <div>
           <input
-            onChange={(e) => {
-              setAuthor(e.target.value);
-            }}
+            onChange={handleChangeState}
             type="text"
-            value={author}
+            value={diaryInfo.author}
             name="author"
             placeholder="Author"
           />{" "}
-          {author}
+          {diaryInfo.author}
         </div>
         <div>
           <textarea
-            onChange={(e) => {
-              setContent(e.target.value);
-            }}
+            onChange={handleChangeState}
             type="text"
-            value={content}
+            value={diaryInfo.content}
             name="content"
             placeholder="Diary Content"
           ></textarea>{" "}
-          {content}
+          {diaryInfo.content}
         </div>
         <div>
           <label>
             Emotion Rate:
-            <select onChange={(e) => setEmotion(e.target.value)}>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
+            <select name='emotion' value={diaryInfo.emotion} onChange={handleChangeState}>
+              <option value={1}>1</option>
+              <option value={2}>2</option>
+              <option value={3}>3</option>
+              <option value={4}>4</option>
+              <option value={5}>5</option>
             </select>
-          </label>{" "}
-          {emotion}
+          </label>
+          {diaryInfo.emotion}
         </div>
         <div>
-          <button type='submit'>Save</button>
+          <button type="submit">Save</button>
         </div>
       </form>
     </>
