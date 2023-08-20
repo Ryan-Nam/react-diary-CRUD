@@ -2,7 +2,7 @@ import React from "react";
 import DiaryItem from './DiaryItem';
 // list is wrapped as array. []
 
-export default function DiaryList({ list, onDelete }) {
+export default function DiaryList({ list, onDelete, onEdit }) {
 
   return (
     <div>
@@ -11,7 +11,7 @@ export default function DiaryList({ list, onDelete }) {
       <p>{list.length} Diary here</p>
       {/* Diary item would be here -> make as component later */}
       {list.map((it) => (
-        <DiaryItem key={it.id} data={it} onDelete={onDelete}/>
+        <DiaryItem key={it.id} data={it} onDelete={onDelete} onEdit={onEdit}/>
       ))}
     </div>
   );

@@ -19,15 +19,23 @@ function App() {
     dataId.current += 1;
     setData([newItem, ...data]);
   }
+
   const onDelete =(id) => {
     console.log(`Deleted ${id}`);
-    setData([])
+    // const newDiaryList = data.filter((item)=>item.id !== id)
+    setData(data.filter((item)=>item.id !== id))
+  }
+
+  const onEdit = (id) => {
+    console.log(`Do you wanna update this? ${id}`)
+    
+
   }
 
   return (
     <div className="App">
       <DiaryNewForm onCreate={onCreate}/>
-      <DiaryList list={data} onDelete={onDelete} />
+      <DiaryList list={data} onDelete={onDelete} onEdit={onEdit} />
     </div>
   );
 }
